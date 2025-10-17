@@ -1,5 +1,43 @@
 package templates
 
-templ Layout() {
-<h1>Welcome to your dashboard</h1>
+templ Base() {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gofire App</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="brand">🔥 Gofire</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/dashboard">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content container">
+        { children... }
+    </main>
+
+    <footer class="footer">
+        <aside>
+            <p>Copyright ©2025 </p>
+            <p>All rights reserved by Simone</p>
+        </aside>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/static/js/main.js"></script>
+</body>
+
+</html>
 }

@@ -1,0 +1,54 @@
+package templates
+
+import "fmt"
+
+type NetWorth struct {
+Balance float64
+HistoricDataJSON string
+}
+
+templ Dashboard(nw NetWorth) {
+@Base() {
+<section>
+    <h1>Welcome to your Dashboard</h1>
+
+    <div class="card">
+        <p>Your current balance is:</p>
+        <h2>CHF { fmt.Sprintf("%.2f", nw.Balance) }</h2>
+    </div>
+
+    <div class="card">
+        <h3>Net Worth Evolution</h3>
+        <canvas id="netWorthChart" data-historic={ nw.HistoricDataJSON } width="400" height="200"></canvas>
+    </div>
+    <script>
+        const canvas = document.getElementById('netWorthChart');
+        const historicDataString = canvas.dataset.historic;
+        const data = JSON.parse(historicDataString);
+
+        const ctx = document.getElementById('netWorthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map((_, i) => `Month ${i + 1}`),
+                datasets: [{
+                    label: 'CHF',
+                    data: data,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59,130,246,0.1)',
+                    tension: 0.3,
+                    fill: true,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                    }
+                }
+            }
+        });
+    </script>
+</section>
+}
+}
